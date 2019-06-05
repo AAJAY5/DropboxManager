@@ -1,0 +1,24 @@
+{
+  "name":"DropboxManager",
+  "description":"simple Dropbox manager using dropbox api for esp8266",
+  "keywords":"manager,dropbox,esp8266",
+  "authors":
+  {
+    "name": "Ajay ambaliya",
+    "maintainer": true
+  },
+  "repository":
+  {
+    "type": "git",
+    "url": "https://github.com/AAJAY5/DropboxManager.git"
+  },
+  "version": "1.0.0",
+  "frameworks": "arduino",
+  "platforms": ["espressif8266"],
+  "dependencies": [
+    {
+      "name": "ArduinoJson",
+      "platforms": "espressif8266"
+    }
+  ]
+}
