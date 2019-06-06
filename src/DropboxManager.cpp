@@ -49,13 +49,14 @@ bool DropboxManager::stringUpload(String str, String address, bool type)
 		_auth = "Bearer " + _token;
 		String DROP_URL = String(DROPBOX_CONTENT_API) + String(DROPBOX_FILE_UPLOAD);
 		len = str.length();
-		StaticJsonDocument<512> Arg;
+		StaticJsonBuffer<512> jsonBuffer;
+  		JsonObject& Arg = jsonBuffer.createObject();
 		Arg["path"] = address;
 		Arg["mode"] = _mode;
 		Arg["autorename"] = true;
 		Arg["mute"] = false;
 		Arg["strict_conflict"] = false;
-		serializeJson(Arg, api_arg);
+		Arg.printTo(api_arg);
 
 		_wifi.setFingerprint(DROPBOX_CONTENT_API_FINGERPRINT);
 		_http.begin(_wifi, DROP_URL);
@@ -117,13 +118,14 @@ bool DropboxManager::fileUpload(String file, String address, bool type)
 			DB_MSG_NL("%ld", file_size);
 			_auth = "Bearer " + _token;
 			String DROP_URL = String(DROPBOX_CONTENT_API) + String(DROPBOX_FILE_UPLOAD);
-			StaticJsonDocument<512> Arg;
+			StaticJsonBuffer<512> jsonBuffer;
+  			JsonObject& Arg = jsonBuffer.createObject();
 			Arg["path"] = address;
 			Arg["mode"] = _mode;
 			Arg["autorename"] = true;
 			Arg["mute"] = false;
 			Arg["strict_conflict"] = false;
-			serializeJson(Arg, api_arg);
+			Arg.printTo(api_arg);
 
 			_wifi.setFingerprint(DROPBOX_CONTENT_API_FINGERPRINT);
 			_http.begin(_wifi, DROP_URL);
@@ -162,9 +164,10 @@ bool DropboxManager::fileDownload(String file, String address)
 	{
 		_auth = "Bearer " + _token;
 		String DROP_URL = String(DROPBOX_CONTENT_API) + String(DROPBOX_FILE_DOWNLOAD);
-		StaticJsonDocument<128> Arg;
+		StaticJsonBuffer<128> jsonBuffer;
+  		JsonObject& Arg = jsonBuffer.createObject();
 		Arg["path"] = address;
-		serializeJson(Arg, api_arg);
+		Arg.printTo(api_arg);
 
 		_wifi.setFingerprint(DROPBOX_CONTENT_API_FINGERPRINT);
 		_http.begin(_wifi, DROP_URL);
@@ -213,9 +216,10 @@ bool DropboxManager::fileDelete(String file)
 	String response = "";
 	String DROP_URL = String(DROPBOX_MAIN_API) + String(DROPBOX_FILE_DELETE);
 	_auth = "Bearer " + _token;
-	StaticJsonDocument<128> json;
+	StaticJsonBuffer<128> jsonBuffer;
+  	JsonObject& json = jsonBuffer.createObject();
 	json["path"] = file;
-	serializeJson(json, jsonStr);
+	json.printTo(jsonStr);
 
 	_wifi.setFingerprint(DROPBOX_MAIN_API_FINGERPRINT);
 	_http.begin(_wifi, DROP_URL);
