@@ -7,6 +7,7 @@
 #define TOKEN			"Dropbox_Token_here"
 
 DropboxManager drop;
+
 void setup()
 {
 	Serial.begin(115200);
@@ -26,8 +27,6 @@ void setup()
 	
 	drop.SetToken(TOKEN);
 	drop.fileUpload("/apple.txt","/spiffs.txt",1);
-	// drop.fileDownload("/apple.txt","/fifrst.txt");
-	// drop.fileDelete("/spiff's.txt");
 }
 
 void loop()
